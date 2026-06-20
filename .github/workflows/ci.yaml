@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+    # 👇 YEH NAYA BLOCK ADD KARNA HAI 👇
+permissions:
+  contents: read
+  packages: write
+# 👆 ---------------------------- 👆
+
 jobs:
   build-and-push-all:
     runs-on: ubuntu-latest
