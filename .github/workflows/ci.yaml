@@ -50,7 +50,7 @@ jobs:
         run: |
           if [ -f "./src/${{ matrix.service }}/src/Dockerfile" ]; then
             echo "Nested Dockerfile mili (jaise cartservice ke liye)..."
-            docker build -f ./src/${{ matrix.service }}/src/Dockerfile -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest ./src/${{ matrix.service }}
+            docker build -f ./src/${{ matrix.service }}/src/Dockerfile -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest ./src/${{ matrix.service }}/src
           else
             echo "Normal Dockerfile mili (jaise shoppingassistantservice ke liye)..."
             docker build -f ./src/${{ matrix.service }}/Dockerfile -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest ./src/${{ matrix.service }}
