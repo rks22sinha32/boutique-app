@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boutique-app-deployment
+  namespace: boutique
+spec:
+  replicas: 3 # Humare cluster mein hamesha 3 copies chalengi app ki
+  selector:
+    matchLabels:
+      app: boutique-app
+  template:
+    metadata:
+      labels:
+        app: boutique-app
+    spec:
+      containers:
+      - name: boutique-app
+        image: ghcr.io/your-username/my-boutique-app:latest # Jo image CI pipeline ne banayi!
+        ports:
+        - containerPort: 80

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: boutique-app-service
+  namespace: boutique
+spec:
+  selector:
+    app: boutique-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP # Yeh cluster ke andar ka internal IP hai
