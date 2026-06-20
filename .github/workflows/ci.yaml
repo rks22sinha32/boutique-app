@@ -39,13 +39,16 @@ jobs:
 
       # Step: Docker Build
       # '${{ matrix.service }}' apna naam automatically list se uthayega (e.g., src/adservice)
-     # Step: Docker Build with custom Dockerfile path
+     # Step: Smart Docker Build (Handles both folder structures)
       - name: Build Docker Image for ${{ matrix.service }}
         run: |
-          docker build \
-            -f ./src/${{ matrix.service }}/src/Dockerfile \
-            -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest \
-            ./src/${{ matrix.service }}
+          if [ -f "./src/${{ matrix.service }}/src/Dockerfile" ]; then
+            echo "Nested Dockerfile mili (jaise cartservice ke liye)..."
+            docker build -f ./src/${{ matrix.service }}/src/Dockerfile -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest ./src/${{ matrix.service }}
+          else
+            echo "Normal Dockerfile mili (jaise shoppingassistantservice ke liye)..."
+            docker build -f ./src/${{ matrix.service }}/Dockerfile -t ghcr.io/${{ github.repository }}/${{ matrix.service }}:latest ./src/${{ matrix.service }}
+          fi
 
       # Step: Trivy Scan
       - name: Run Trivy Scanner for ${{ matrix.service }}
